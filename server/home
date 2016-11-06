@@ -1,0 +1,28 @@
+import time
+from check_lang import check_py,check_rb,check_j,check_c,check_cpp
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route("/")
+def hello():
+    return '<form action="/check" method="POST"><input name="code"><input type="submit" value="Code Here"></form>'
+
+@app.route("/check", methods=['POST'])
+def echo():
+    codes = []
+    filename = str(int(time.time()))
+    with open('code/'+filename,'w+') as outfile:
+        outfile.write(request.form['code'])
+
+    print request.form['code'].split()[1]
+
+    codes.append(str(check_c("code/"+filename)))
+    codes.append(str(check_cpp("code/"+filename)))
+    codes.append(str(check_py("code/"+filename)))
+    codes.append(str(check_rb("code/"+filename)))
+    codes.append(str(check_j("code/"+filename)))
+    return "You said: " + request.form['code']+ " the file name was : "+str(filename)+" the codes are : "+""''.join(codes)
+
+
+if __name__ == "__main__":
+    app.run()

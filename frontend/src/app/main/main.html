@@ -1,0 +1,48 @@
+<div class="" layout-padding>
+  <div class="md-display-2 white">
+    <center>Source Code Madness</center>
+  </div>
+  
+  <center>
+    <div class="textarea">
+      <md-input-container class="md-block">
+        <label>Paste Your Source Code</label>
+        <textarea  style="height: 80px; color: #f5f5f5;" rows="5" ng-model="sc"></textarea>
+      </md-input-container>
+    </div>
+  </center>
+
+  <center>
+    <div class="">
+      <md-button layout-padding style="width: 20%" ng-show="loader" ng-click="process()" class="md-raised">Submit</md-button>
+
+      <div class="loader" ng-hide="loader">
+        <div class="loader-inner ball-grid-pulse">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+    </div>
+  </center>
+
+  <center>
+    <div class="result" ng-hide="res">
+
+      <md-card ng-repeat="(lang, ext) in langs" layout-padding style="width: 50%" ng-class="{green: ext == maxProb}">
+        <md-card-content layout="row" layout-align="space-around center">
+          <h2>{{lang}}</h2>
+          <p>{{prob[ext]*100}}%</p>
+        </md-card-content>
+      </md-card>
+
+    </div>
+  </center>
+</div>
